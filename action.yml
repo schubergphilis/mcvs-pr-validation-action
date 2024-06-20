@@ -7,6 +7,8 @@ runs:
   using: composite
   steps:
     - name: Check whether PR description is nonempty
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         PR_NUMBER="${GITHUB_REF_NAME/\/merge/}"
         if [[ ! ${PR_NUMBER} =~ ^[0-9]+$ ]]; then

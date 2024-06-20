@@ -28,6 +28,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.1
       - uses: schubergphilis/mcvs-pr-validation-action@v0.1.0
-        env:
-          GH_TOKEN: ${{ github.token }}
 ```

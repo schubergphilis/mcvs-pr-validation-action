@@ -14,5 +14,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: ./
-        env:
-          GH_TOKEN: ${{ github.token }}
