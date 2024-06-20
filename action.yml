@@ -1,0 +1,22 @@
+---
+name: mcvs-pr-validation-action
+description: |
+  Mission Critical Vulnerability Scanner (MCVS) Pull Request (PR) Validation
+  action.
+runs:
+  using: composite
+  steps:
+    - name: Check whether PR description is nonempty
+      run: |
+        PR_NUMBER="${GITHUB_REF_NAME/\/merge/}"
+        if [[ ! ${PR_NUMBER} =~ ^[0-9]+$ ]]; then
+          echo "PR_NUMBER should be a number, got: ${PR_NUMBER}"
+          exit 1
+        fi
+
+        PR_DESCRIPTION=$(gh pr view ${PR_NUMBER} --json body --jq '.body')
+        if [[ -z "${PR_DESCRIPTION}" ]]; then
+          echo "Please provide a description for the pull request"
+          exit 1
+        fi
+      shell: bash
