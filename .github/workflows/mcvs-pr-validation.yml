@@ -8,6 +8,9 @@ name: MCVS-PR-validation-action
       - reopened
       - synchronize
   workflow_call:
+permissions:
+  contents: read
+  pull-requests: read
 jobs:
   MCVS-PR-validation-action:
     runs-on: ubuntu-22.04

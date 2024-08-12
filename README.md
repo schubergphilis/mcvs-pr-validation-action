@@ -11,7 +11,7 @@ consists of the following steps:
 Create a `.github/workflows/mcvs-pr-validation.yml` file with the following
 content:
 
-```bash
+```yaml
 ---
 name: MCVS-PR-validation-action
 "on":
@@ -22,10 +22,16 @@ name: MCVS-PR-validation-action
       - reopened
       - synchronize
   workflow_call:
+permissions:
+  contents: read
+  pull-requests: read
 jobs:
   MCVS-PR-validation-action:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4.1.1
-      - uses: schubergphilis/mcvs-pr-validation-action@v0.1.0
+      # required as action performs some git actions under the hood. Without
+      # a checkout, a: 'failed to run git: fatal: not a git repository' issue
+      # will appear.
+      - uses: actions/checkout@v4.1.7
+      - uses: schubergphilis/mcvs-pr-validation-action@v0.1.2
 ```
