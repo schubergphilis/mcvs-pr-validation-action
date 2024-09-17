@@ -22,3 +22,12 @@ runs:
           exit 1
         fi
       shell: bash
+    - name: Check PR description for issue URL
+      shell: bash
+      run: |
+          if [[ "${{ github.event.pull_request.body }}" == *"#"* ]]; then
+            echo "Issue URL found in the PR description."
+          else
+            echo "Error: No issue URL found in the PR description." >&2
+            exit 1
+          fi
