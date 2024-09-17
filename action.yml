@@ -25,9 +25,12 @@ runs:
     - name: Check PR description for issue URL
       shell: bash
       run: |
-          if [[ "${{ github.event.pull_request.body }}" == *"#"* ]]; then
-            echo "Issue URL found in the PR description."
-          else
-            echo "Error: No issue URL found in the PR description." >&2
-            exit 1
-          fi
+        ISSUE_URL_REGEX="https://github\.com/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/issues/[0-9]+"
+        PR_BODY="${{ github.event.pull_request.body }}"
+
+        if [[ "${PR_BODY}" =~ ${ISSUE_URL_REGEX} ]]; then
+          echo "Issue URL found in the PR description."
+        else
+          echo "Error: No issue URL found in the PR description." >&2
+          exit 1
+        fi
