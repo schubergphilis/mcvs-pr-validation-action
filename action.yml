@@ -3,6 +3,11 @@ name: mcvs-pr-validation-action
 description: |
   Mission Critical Vulnerability Scanner (MCVS) Pull Request (PR) Validation
   action.
+inputs:
+  gh_issue_check: 
+    description: 'Check if PR description contains GH issue URL.'
+    required: false
+    default: 'false'
 runs:
   using: composite
   steps:
@@ -22,3 +27,16 @@ runs:
           exit 1
         fi
       shell: bash
+    - name: Check PR description for issue URL
+      shell: bash
+      if: ${{ inputs.gh_issue_check == 'true' }}
+      run: |
+        ISSUE_URL_REGEX="https://github\.com/[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+/issues/[0-9]+"
+        PR_BODY="${{ github.event.pull_request.body }}"
+
+        if [[ "${PR_BODY}" =~ ${ISSUE_URL_REGEX} ]]; then
+          echo "Issue URL found in the PR description."
+        else
+          echo "Error: No issue URL found in the PR description." >&2
+          exit 1
+        fi
