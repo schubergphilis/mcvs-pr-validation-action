@@ -35,4 +35,6 @@ jobs:
       # will appear.
       - uses: actions/checkout@v4.1.7
       - uses: schubergphilis/mcvs-pr-validation-action@v0.1.2
+        with: # optional
+          gh_issue_check: true
 ```
