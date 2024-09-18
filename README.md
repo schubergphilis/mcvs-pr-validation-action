@@ -5,7 +5,7 @@ Action is a custom [GitHub Action](https://github.com/features/actions) that
 consists of the following steps:
 
 - Nonempty PR description.
-- PR description contains issue URL.
+- PR description contains issue URL.(optional)
 
 ## Usage
 
