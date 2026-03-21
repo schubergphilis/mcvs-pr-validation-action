@@ -27,7 +27,7 @@ permissions:
   pull-requests: read
 jobs:
   MCVS-PR-validation-action:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       # required as action performs some git actions under the hood. Without
       # a checkout, a: 'failed to run git: fatal: not a git repository' issue
