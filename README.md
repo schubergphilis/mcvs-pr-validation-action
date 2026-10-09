@@ -33,5 +33,7 @@ jobs:
       # a checkout, a: 'failed to run git: fatal: not a git repository' issue
       # will appear.
       - uses: actions/checkout@v4.1.7
+        with:
+          persist-credentials: false
       - uses: schubergphilis/mcvs-pr-validation-action@v0.1.2
 ```
